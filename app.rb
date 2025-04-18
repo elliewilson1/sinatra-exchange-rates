@@ -6,16 +6,20 @@ require "http"
 
 exchange_rates_api_key = ENV.fetch("EXCHANGE_RATE_KEY")
 
-exchange_rates_url_list = "https://api.exchangerate.host/list?access_key=" + exchange_rates_api_key
-raw_response_list = HTTP.get(exchange_rates_url_list).to_s
-parsed_response_list = JSON.parse(raw_response_list)
-
 get("/") do
+  exchange_rates_url_list = "https://api.exchangerate.host/list?access_key=" + exchange_rates_api_key
+  raw_response_list = HTTP.get(exchange_rates_url_list).to_s
+  parsed_response_list = JSON.parse(raw_response_list)
+  
   @list = parsed_response_list.fetch("currencies")
   erb(:list)
 end
 
 get("/:first_currency") do
+  exchange_rates_url_list = "https://api.exchangerate.host/list?access_key=" + exchange_rates_api_key
+  raw_response_list = HTTP.get(exchange_rates_url_list).to_s
+  parsed_response_list = JSON.parse(raw_response_list)
+
   first_currency = params.fetch("first_currency")
 
   @first_currency = first_currency
